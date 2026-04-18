@@ -1,322 +1,330 @@
-# 🚀 VOBIZ VOICE AI PLATFORM - COMPLETE STARTER KIT
+# 🚀 START HERE - Your 7-Day MVP Launch Plan
 
-## 📚 DOCUMENTATION INDEX
-
-You now have **5 comprehensive strategy documents** for building your Voice AI Platform:
-
-| Document | Purpose | Key Content |
-|----------|---------|-------------|
-| **MASTER_PLAN.md** | Overall Strategy | 5-phase roadmap, business model, pitfalls, metrics |
-| **TECH_STACK_COMPARISON.md** | Technology Options | Component comparison, costs, architecture options |
-| **GO_TO_MARKET_STRATEGY.md** | Customer Acquisition | Niche strategy, pricing, sales playbook |
-| **GOOGLE_GEMINI_ANALYSIS.md** | LLM Selection | Live API analysis, preview vs production models |
-| **COMPLETE_ARCHITECTURE.md** | Technical Implementation | Full stack details, code samples, deployment guide |
+**Welcome to Vobiz Voice AI Platform!**  
+This is your complete guide to launching a voice AI business for Indian dental clinics in 7 days.
 
 ---
 
-## 🎯 FINAL RECOMMENDED STACK (Summary)
+## 📅 DAY-BY-DAY PLAN
 
-```
-┌─────────────────────────────────────────┐
-│            YOUR CUSTOMERS               │
-│         (Dental Clinics First)          │
-└───────────────┬─────────────────────────┘
-                │
-                ▼
-┌─────────────────────────────────────────┐
-│              VOBIZ                      │
-│    Telephony Infrastructure             │
-│    Cost: $0.004/min                     │
-└───────────────┬─────────────────────────┘
-                │
-                ▼
-┌─────────────────────────────────────────┐
-│           LIVEKIT AGENTS                │
-│    Orchestration & Streaming            │
-│    Cost: $0.001/min (self-hosted)       │
-└───────┬──────────────┬──────────┬───────┘
-        │              │          │
-        ▼              ▼          ▼
-   ┌────────┐    ┌─────────┐  ┌──────────┐
-   │DEEPGRAM│    │ GEMINI  │  │ELEVENLABS│
-   │ Nova-2 │    │ 2.5 Flash│  │ Turbo 2.5│
-   │  STT   │    │   LLM   │  │   TTS    │
-   └────────┘    └─────────┘  └──────────┘
-   $0.0025/min   $0.003/min   $0.003/min
-        │              │          │
-        └──────────────┴──────────┘
-                       │
-                       ▼
-┌─────────────────────────────────────────┐
-│             SUPABASE                    │
-│    Database + Auth + Storage            │
-│    Cost: Free tier to start             │
-└─────────────────────────────────────────┘
-```
+### **DAY 1: Setup Accounts & Environment (4 hours)**
 
-**Total Cost:** $0.0135/min  
-**Sell Price:** $0.03-0.05/min  
-**Margin:** 120-270%
+#### ✅ Create These Accounts:
+1. **Vobiz** - https://vobiz.ai/
+   - Get API key, SIP credentials
+   - Note: May need to contact sales for access
 
----
+2. **Google Cloud** - https://console.cloud.google.com/
+   - Enable Gemini API
+   - Get API key for `gemini-2.5-flash-preview-05-20`
+   - Set billing (₹300 free credit)
 
-## ⚠️ CRITICAL WARNINGS FROM GOOGLE API ANALYSIS
+3. **Supabase** - https://supabase.com/
+   - Create project in **Mumbai region** (asia-south-1)
+   - Get URL and anon/service keys
 
-### DO NOT USE THESE MODELS IN PRODUCTION:
+4. **n8n** - Will self-host via Docker (free!)
 
-❌ Gemini 3.1 Flash TTS (Preview)  
-❌ Gemini 3.1 Flash Live (Preview)  
-❌ Gemini 3.1 Pro (Preview)  
-❌ Gemini 3 Pro (Preview)  
-❌ Gemini 2.5 Flash Native Audio (Preview)  
-
-**Reason:** Preview models can be deprecated, changed, or removed without notice. Your production system will break.
-
-### USE THESE PRODUCTION-READY MODELS:
-
-✅ **Gemini 2.5 Flash** - Best balance (RECOMMENDED)  
-✅ **Gemini 2.5 Flash Lite** - Cheapest option  
-✅ **Gemini 2.5 Pro** - Complex reasoning  
-✅ **Gemini 2.0 Flash** - Legacy stable  
-
----
-
-## 📋 WEEK 1 CHECKLIST
-
-### Day 1: Account Setup (2 hours)
-- [ ] **Vobiz:** Create account at https://vobiz.ai/
-  - Get SIP server, username, password
-  - Order 1 test phone number (~$5/month)
-  
-- [ ] **Google Cloud:** Create project
-  - Enable Gemini API
-  - Create API key
-  - Set up billing alert ($100 limit)
-  
-- [ ] **Deepgram:** Create account
-  - Get API key
-  - Free tier: 10,000 minutes/month
-  
-- [ ] **ElevenLabs:** Create account
-  - Get API key
-  - Free tier: 10,000 characters/month
-  - Clone a test voice
-  
-- [ ] **Supabase:** Create project
-  - Get database URL and anon key
-  - Run schema from COMPLETE_ARCHITECTURE.md
-
-### Day 2-3: Local Development (4 hours)
+#### ✅ Clone & Configure:
 ```bash
-# Install Node.js dependencies
-npm install @livekit/agents @livekit/kits
-
-# Install Python dependencies
-pip install livekit-agents livekit-plugins-deepgram \
-            livekit-plugins-elevenlabs livekit-plugins-google
-
-# Clone starter template
-git clone https://github.com/livekit/agents-examples.git
-cd agents-examples/voice-assistant
+cd /workspace/vobiz-voice-ai
+cp .env.example .env
 ```
 
-### Day 4-5: Build Test Flow (6 hours)
-- [ ] Connect Vobiz SIP to LiveKit
-- [ ] Test STT → LLM → TTS pipeline
-- [ ] Measure latency (target: <600ms)
-- [ ] Log conversations to Supabase
-
-### Day 6-7: First Real Call (4 hours)
-- [ ] Call your own system from personal phone
-- [ ] Test appointment booking scenario
-- [ ] Record and review conversation
-- [ ] Fix any bugs
+Edit `.env` with your actual API keys:
+- `VOBIZ_API_KEY`, `VOBIZ_SIP_USERNAME`, `VOBIZ_SIP_PASSWORD`
+- `GOOGLE_API_KEY`
+- `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`
 
 ---
 
-## 💰 PRICING STRATEGY (Start Here)
+### **DAY 2: Local Development Setup (6 hours)**
 
-### Launch Pricing (First 10 Customers):
+#### ✅ Install Dependencies:
+```bash
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+pip install -r requirements.txt
+```
 
-| Plan | Monthly Price | Minutes | Effective Rate |
-|------|--------------|---------|----------------|
-| **Beta** | $199 | 500 min | $0.398/min |
-| **Starter** | $399 | 1,200 min | $0.333/min |
-| **Growth** | $799 | 3,000 min | $0.266/min |
+#### ✅ Start Infrastructure:
+```bash
+cd docker
+docker-compose up -d supabase-db redis n8n
+```
 
-**Your Cost:** $0.0135/min  
-**Profit per customer (Growth plan):** $759/month
+Verify services running:
+- PostgreSQL: http://localhost:5432
+- Redis: http://localhost:6379
+- n8n: http://localhost:5678
 
-### After Product-Market Fit:
+#### ✅ Run the App:
+```bash
+cd ..
+python -m uvicorn src.main:app --reload
+```
 
-| Plan | Monthly Price | Minutes | Overage |
-|------|--------------|---------|---------|
-| Starter | $299 | 500 min | $0.05/min |
-| Growth | $799 | 2,000 min | $0.04/min |
-| Pro | $1,499 | 5,000 min | $0.035/min |
-| Enterprise | Custom | Custom | $0.03/min |
+Visit: http://localhost:8000/docs
 
----
-
-## 🎯 TARGET MARKET: DENTAL CLINICS
-
-### Why Dental?
-- High call volume (appointments, emergencies)
-- Missed calls = lost revenue ($200-500 per patient)
-- Repetitive questions (hours, insurance, services)
-- Can afford $300-800/month software
-- Underserved by current solutions
-
-### Ideal Customer Profile:
-- 2-10 dentist practices
-- 500-2,000 calls/month
-- Already use dental software (Dentrix, Eaglesoft)
-- Tech-savvy owner or office manager
-- Located in US/Canada/UK/Australia
-
-### Value Proposition:
-> "Never miss a patient call again. Our AI answers 24/7, books appointments directly into your calendar, and handles FAQs - all in a natural human voice."
+You should see FastAPI Swagger UI! 🎉
 
 ---
 
-## 📞 SALES SCRIPT (Cold Call)
+### **DAY 3: Database & First Test Call (8 hours)**
 
-**Opening:**
-> "Hi [Name], this is [Your Name] from [Company]. I noticed your clinic doesn't have after-hours call coverage. When patients call with emergencies at 7 PM, do you currently capture those appointments?"
+#### ✅ Initialize Database:
+```bash
+docker exec -i <postgres_container_id> psql -U postgres -d vobiz_voice_ai < docker/init.sql
+```
 
-**Problem:**
-> "Most dental offices lose 30-40% of new patient calls because they happen outside business hours. That's potentially $10,000-20,000 in lost revenue monthly."
+Check tables created:
+```sql
+SELECT * FROM businesses;
+SELECT * FROM agent_configs;
+```
 
-**Solution:**
-> "We've built an AI receptionist that answers calls 24/7, books appointments directly into your Dentrix calendar, and handles common questions. It sounds completely human and costs less than a part-time receptionist."
+#### ✅ Import n8n Workflow:
+1. Open http://localhost:5678
+2. Go to Settings → Workflows → Import
+3. Select `workflows/post-call-processing.json`
+4. Activate the workflow
 
-**Proof:**
-> "[Nearby Dental Clinic] started using us 2 months ago. They're now capturing 95% of after-hours calls and added $15,000 in monthly revenue. Would you be open to a 2-week free trial?"
-
-**Close:**
-> "I can have you set up by tomorrow. We'll use your existing phone number, train the AI on your specific services and insurance plans, and you'll see results in week one. Should we start the trial?"
-
----
-
-## 🔥 COMPETITIVE LANDSCAPE
-
-### Direct Competitors:
-| Company | Funding | Weakness | Your Advantage |
-|---------|---------|----------|----------------|
-| **Vapi** | $4M+ | Generic, no vertical focus | Dental-specific flows |
-| **Bland AI** | $6M+ | Enterprise-focused | SMB-friendly pricing |
-| **Retell AI** | $3M+ | Developer-first | Business owner-friendly |
-| **Air AI** | $8M+ | Sales-focused | Customer service focus |
-
-### Your Differentiators:
-1. ✅ **Vertical Focus:** Only dental (initially)
-2. ✅ **Faster Setup:** Live in 24 hours vs 2 weeks
-3. ✅ **Better Pricing:** Transparent flat-rate vs per-minute surprise bills
-4. ✅ **White-Glove Service:** Dedicated onboarding specialist
-5. ✅ **Integration Ready:** Pre-built Dentrix/Eaglesoft connectors
+#### ✅ Make Your First Test Call:
+Use this curl command to simulate a call:
+```bash
+curl -X POST http://localhost:8000/api/v1/calls/start \
+  -H "Content-Type: application/json" \
+  -d '{
+    "business_id": "<get-from-database>",
+    "caller_phone": "+919876543210",
+    "call_direction": "inbound"
+  }'
+```
 
 ---
 
-## 📊 SUCCESS METRICS (Track Weekly)
+### **DAY 4: Integrate Real Telephony (8 hours)**
 
-### Week 1-4 (Validation):
-- [ ] 50 customer interviews completed
-- [ ] 3 beta customers signed up
-- [ ] First paid customer onboarded
-- [ ] Average call latency < 600ms
-- [ ] Customer satisfaction > 4/5
+#### ✅ Connect Vobiz Webhook:
+In Vobiz dashboard, set webhook URL to:
+```
+https://your-ngrok-url.ngrok.io/api/v1/webhooks/vobiz
+```
 
-### Month 2-3 (Traction):
-- [ ] 10 paying customers
-- [ ] $3,000 MRR
-- [ ] Churn rate < 5%
-- [ ] Net Promoter Score > 50
-- [ ] CAC payback < 3 months
+Use ngrok for local testing:
+```bash
+ngrok http 8000
+```
 
-### Month 4-6 (Scale):
-- [ ] 50 paying customers
-- [ ] $15,000 MRR
-- [ ] Hire first employee (customer success)
-- [ ] Expand to second vertical (veterinary)
-- [ ] Raise pre-seed round ($500K-1M)
+#### ✅ Test End-to-End Flow:
+1. Call your Vobiz number
+2. Verify webhook hits your server
+3. Check logs for processing
+4. Verify data saved to Supabase
+5. Check n8n workflow triggered
 
 ---
 
-## 🛠️ TECHNICAL RESOURCES
+### **DAY 5: Build Dental Clinic Agent (8 hours)**
 
-### GitHub Repos to Study:
-- https://github.com/livekit/agents-examples
-- https://github.com/deepgram-devs/deepgram-python-sdk
-- https://github.com/elevenlabs/elevenlabs-python
-- https://github.com/supabase/supabase
+Create `src/agents/dental_assistant.py`:
 
-### Documentation:
-- LiveKit Agents: https://docs.livekit.io/agents/
-- Deepgram: https://developers.deepgram.com/
-- ElevenLabs: https://docs.elevenlabs.io/
-- Supabase: https://supabase.com/docs
-- Gemini API: https://ai.google.dev/docs
+```python
+"""
+Dr. Priya - Dental Assistant Agent
+Speaks English + Hindi
+"""
 
-### Communities:
-- LiveKit Discord: https://discord.gg/livekit
-- r/voice_ai (Reddit)
-- Indie Hackers Forum
-- Y Combinator Startup School
+SYSTEM_PROMPT = """
+You are Dr. Priya, a friendly dental assistant at Smile Care Dental Clinic.
 
----
+YOUR ROLE:
+1. Answer patient questions about dental services
+2. Book appointments based on available slots
+3. Handle emergencies by escalating to human staff
+4. Provide pricing information for common procedures
 
-## 🎓 MENTOR'S FINAL WORDS
+LANGUAGES: Speak both English and Hindi fluently. Match the caller's language.
 
-### The Hard Truth:
-Building this company will be **harder than you expect**. You'll face:
-- Technical challenges (latency, accuracy, scale)
-- Sales rejection (90% of cold calls will say no)
-- Customer complaints (AI will make mistakes)
-- Cash flow stress (payroll before payments arrive)
-- Imposter syndrome (competitors seem better)
+PERSONALITY: Warm, professional, empathetic. Never rush the caller.
 
-### But Here's Why You'll Win:
-1. **Timing is perfect:** Voice AI is where web was in 1995
-2. **Market is massive:** Every business needs phone coverage
-3. **Technology is ready:** All components are production-grade
-4. **Competition is weak:** No one owns a vertical yet
-5. **You're committed:** You're already doing the research
+ESCALATION RULES:
+- Severe pain → Immediately transfer to human
+- Complex treatment questions → Transfer to doctor
+- Payment disputes → Transfer to receptionist
 
-### My Advice:
-1. **Start small:** One vertical, one city, 10 customers
-2. **Talk to customers daily:** They'll tell you what to build
-3. **Ship fast:** Perfect is the enemy of profitable
-4. **Charge early:** Free users don't give honest feedback
-5. **Focus on retention:** Happy customers refer more customers
+AVAILABLE SERVICES:
+- General Checkup: ₹500
+- Cleaning: ₹1,500
+- Root Canal: ₹3,000-5,000
+- Extraction: ₹800-2,000
+- Implants: ₹15,000+
 
-### Remember:
-> Google started as a search engine for academic papers.  
-> Amazon started selling only books.  
-> Facebook started at one university.  
+BUSINESS HOURS: Mon-Sat 9AM-7PM, Sunday Closed
+EMERGENCY CONTACT: +91-9876543210
+"""
+```
 
-**You don't need to conquer the world on day one.**  
-**Just dominate dental clinics in one city.**
-
-Then expand.
+Test with sample conversations in Hindi and English!
 
 ---
 
-## 📬 NEXT STEPS
+### **DAY 6: Pilot Customer Onboarding (8 hours)**
 
-1. **Read all 5 documents** (you're halfway there!)
-2. **Set up accounts** (Day 1 checklist)
-3. **Build prototype** (Days 2-5)
-4. **Make first test call** (Day 6-7)
-5. **Interview 10 dental offices** (Week 2)
-6. **Sign first beta customer** (Week 3)
-7. **Iterate based on feedback** (Week 4+)
+#### ✅ Find Your First Pilot Clinic:
+Target: Local dental clinic you know
 
-**You have everything you need to start.**
+Pitch Script:
+> "Hi Dr. [Name], I'm building an AI receptionist that answers patient calls 24/7 in English and Hindi. It books appointments automatically and never misses a call. I'm looking for 3 pilot clinics to try it free for 2 weeks. Can I demo it for you?"
 
-The only question is: **Will you start today?**
+#### ✅ Demo Checklist:
+- [ ] Show live call demo
+- [ ] Explain missed call recovery
+- [ ] Show WhatsApp confirmations
+- [ ] Display ROI dashboard
+- [ ] Offer 2-week free trial
+
+Goal: Get 1 clinic to say YES! 🎯
 
 ---
 
-*Created by AI Mentor | 10+ years experience | Based on live research | December 2025*
+### **DAY 7: Deploy to Production (8 hours)**
 
-**Questions? Review the detailed documents or ask for clarification.**
+#### ✅ Deploy on AWS Mumbai:
+```bash
+# Build Docker image
+docker build -t vobiz-voice-ai .
+
+# Push to ECR or Docker Hub
+docker push your-username/vobiz-voice-ai
+
+# Deploy on EC2 or ECS
+# Use docker-compose.prod.yml for production config
+```
+
+#### ✅ Setup Monitoring:
+- Add health check alerts
+- Monitor latency (<600ms target)
+- Track call success rate (>95% target)
+
+#### ✅ Launch Checklist:
+- [ ] Domain purchased (e.g., vobiz.in)
+- [ ] SSL certificate installed
+- [ ] Backup strategy configured
+- [ ] Support email setup (support@vobiz.in)
+- [ ] First paying customer onboarded!
+
+---
+
+## 💰 PRICING TO CHARGE FROM DAY 1
+
+Don't give it away free forever! Charge from Week 2:
+
+| Plan | Price | What's Included |
+|------|-------|-----------------|
+| **Pilot** | FREE (2 weeks) | 500 mins, basic features |
+| **Startup** | ₹2,499/mo | 500 mins, WhatsApp, calendar |
+| **Business** | ₹7,999/mo | 2,500 mins, analytics, priority support |
+
+**Goal:** Convert pilot to paid at ₹2,499/month after 2 weeks!
+
+---
+
+## 🎯 SUCCESS METRICS
+
+Track these from Day 1:
+
+| Metric | Target | Why It Matters |
+|--------|--------|----------------|
+| Latency | <600ms | Natural conversation flow |
+| Answer Rate | >95% | Never miss calls |
+| Booking Conversion | >15% | Proves ROI to clinics |
+| Customer Satisfaction | >4.5/5 | Retention & referrals |
+| Margin | >75% | Sustainable business |
+
+---
+
+## 🆘 COMMON ISSUES & FIXES
+
+### Issue: High Latency (>1s)
+**Fix:** 
+- Use Gemini 2.5 Flash (not Pro)
+- Deploy server in Mumbai (closest to users)
+- Optimize audio streaming (use websockets)
+
+### Issue: Hindi Not Working Well
+**Fix:**
+- Set `GEMINI_LANGUAGE_CODE=hi-IN`
+- Train agent with Hindi dental terminology
+- Add fallback to English if confidence low
+
+### Issue: Vobiz Webhook Not Received
+**Fix:**
+- Check ngrok is running
+- Verify webhook signature validation
+- Check firewall allows inbound connections
+
+### Issue: n8n Workflow Failing
+**Fix:**
+- Check webhook URL is correct
+- Verify Supabase credentials
+- Look at n8n execution logs
+
+---
+
+## 📞 NEED HELP?
+
+Resources:
+- FastAPI Docs: https://fastapi.tiangolo.com/
+- Gemini API: https://ai.google.dev/
+- Vobiz Docs: https://vobiz.ai/docs
+- n8n Workflows: https://n8n.io/workflows
+
+Community:
+- Join Indian startup Discord servers
+- Post on LinkedIn (#VoiceAI #IndiaStartups)
+- Reach out to dental associations
+
+---
+
+## 🚀 AFTER 7 DAYS: WHAT'S NEXT?
+
+### Week 2-3:
+- Onboard 2 more pilot clinics
+- Integrate with popular calendar systems (Google Calendar, Practo)
+- Build admin dashboard for clinics
+
+### Week 4:
+- Start charging all pilots
+- Get testimonials & case studies
+- Build landing page with pricing
+
+### Month 2:
+- Hire first sales person
+- Target 10 more clinics
+- Explore adjacent verticals (veterinary, salons)
+
+### Month 3:
+- Raise pre-seed funding (if needed)
+- Expand to 5 cities
+- Hit ₹1 Lakh MRR!
+
+---
+
+## 🎓 MENTOR'S FINAL ADVICE
+
+> **"Your biggest risk is not launching. Perfection is the enemy of done.**
+>
+> **Day 1: Setup accounts**
+> **Day 3: Make first test call**
+> **Day 7: Get first paying customer**
+>
+> **Don't over-engineer. Don't wait for perfect. Just SHIP!**
+>
+> **Indian healthcare needs this. Patients deserve 24/7 access. You're building something meaningful.**
+>
+> **Jai Hind! 🇮🇳 Now go execute!"**
+
+---
+
+**Ready? Let's build the future of Indian healthcare together!** 🦷🤖

@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y \
     make \
     libffi-dev \
     build-essential \
+    pkg-config \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements first for caching

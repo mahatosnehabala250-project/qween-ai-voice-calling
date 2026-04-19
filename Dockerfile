@@ -10,6 +10,13 @@ RUN apt-get update && apt-get install -y \
     libffi-dev \
     build-essential \
     pkg-config \
+    libavformat-dev \
+    libavcodec-dev \
+    libavdevice-dev \
+    libavutil-dev \
+    libavfilter-dev \
+    libswscale-dev \
+    libswresample-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements first for caching

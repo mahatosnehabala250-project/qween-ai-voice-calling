@@ -27,7 +27,7 @@ psycopg2-binary==2.9.9
 sqlalchemy==2.0.25
 
 # n8n Integration
-httpx==0.26.0
+httpx==0.24.1
 requests==2.31.0
 
 # Utilities
